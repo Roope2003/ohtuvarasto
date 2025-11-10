@@ -1,7 +1,10 @@
+"""Esimerkkiohjelma Varasto-luokan toiminnallisuuden testaamiseen."""
+
 from varasto import Varasto
 
 
 def main():
+    """Suorittaa Varasto-luokan esimerkkikäyttöä ja tulostaa tilat."""
     mehua = Varasto(100.0)
     olutta = Varasto(100.0, 20.2)
 
