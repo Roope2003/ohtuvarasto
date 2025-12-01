@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Create Storage - Meow-varasto{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🐾 Create New Storage</h2>
+    <p style="color: #f9a8d4; margin-bottom: 24px;">Set up a new cozy spot for your cat's treasures!</p>
+    <form method="POST" action="{{ url_for('create_warehouse') }}">
+        <div class="form-group">
+            <label for="name">Storage Name</label>
+            <input type="text" id="name" name="name" required placeholder="e.g., Treat Box, Toy Chest, Catnip Stash">
+        </div>
+        <div class="form-group">
+            <label for="capacity">Capacity</label>
+            <input type="number" id="capacity" name="capacity" step="0.01" min="0" required placeholder="How much can it hold?">
+        </div>
+        <div class="form-group">
+            <label for="initial_balance">Initial Stock (optional)</label>
+            <input type="number" id="initial_balance" name="initial_balance" step="0.01" min="0" value="0" placeholder="Starting amount">
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-success">😻 Create Storage</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
