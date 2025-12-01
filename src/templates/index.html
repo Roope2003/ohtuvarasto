@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Ohtuvarasto - Home{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Warehouse Overview</h2>
+    <p>Welcome to Ohtuvarasto, a simple warehouse management system. Create warehouses to manage your inventory.</p>
+    <div style="margin-top: 15px;">
+        <a href="{{ url_for('create_warehouse') }}" class="btn btn-primary">+ Create New Warehouse</a>
+    </div>
+</div>
+
+{% if warehouses %}
+    <h2 style="margin-bottom: 20px; color: #2c3e50;">Your Warehouses ({{ warehouses|length }})</h2>
+    <div class="warehouse-grid">
+        {% for name, warehouse in warehouses.items() %}
+            <div class="warehouse-card">
+                <h3>{{ name }}</h3>
+                <div class="warehouse-stats">
+                    <div class="stat">
+                        <span class="stat-label">Capacity</span>
+                        <span class="stat-value">{{ warehouse.tilavuus }}</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Current Balance</span>
+                        <span class="stat-value">{{ warehouse.saldo }}</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Available Space</span>
+                        <span class="stat-value">{{ warehouse.paljonko_mahtuu() }}</span>
+                    </div>
+                </div>
+                {% if warehouse.tilavuus > 0 %}
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ (warehouse.saldo / warehouse.tilavuus * 100)|round(1) }}%"></div>
+                    </div>
+                    <small style="color: #666;">{{ (warehouse.saldo / warehouse.tilavuus * 100)|round(1) }}% full</small>
+                {% endif %}
+                <div class="actions">
+                    <a href="{{ url_for('view_warehouse', name=name) }}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="card">
+        <h2>No Warehouses Yet</h2>
+        <p>You haven't created any warehouses yet. Click the button above to create your first warehouse.</p>
+    </div>
+{% endif %}
+{% endblock %}
