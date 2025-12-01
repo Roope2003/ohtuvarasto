@@ -1,50 +1,50 @@
 {% extends "base.html" %}
 
-{% block title %}Ohtuvarasto - Home{% endblock %}
+{% block title %}Meow-varasto - Home{% endblock %}
 
 {% block content %}
 <div class="card">
-    <h2>Warehouse Overview</h2>
-    <p style="color: #94a3b8; margin-bottom: 20px;">Welcome to Ohtuvarasto, a modern warehouse management system. Create and manage your warehouses with ease.</p>
+    <h2>Cat-alog Overview 🐱</h2>
+    <p style="color: #f9a8d4; margin-bottom: 20px;">Welcome to Meow-varasto, your purrfect warehouse management system! Create cozy storage spots for all your treasures.</p>
     <div>
-        <a href="{{ url_for('create_warehouse') }}" class="btn btn-primary">➕ Create New Warehouse</a>
+        <a href="{{ url_for('create_warehouse') }}" class="btn btn-primary">🐾 Create New Storage</a>
     </div>
 </div>
 
 {% if warehouses %}
     <div class="section-header">
-        <h2>Your Warehouses ({{ warehouses|length }})</h2>
+        <h2>Your Cat-alog ({{ warehouses|length }})</h2>
         <div class="stats-summary">
             <div class="stat-box">
-                <span>Total Capacity:</span>
+                <span>🏠 Total Capacity:</span>
                 <strong>{{ warehouses.values()|map(attribute='tilavuus')|sum|round(1) }}</strong>
             </div>
             <div class="stat-box">
-                <span>Total Stock:</span>
+                <span>📦 Total Stock:</span>
                 <strong>{{ warehouses.values()|map(attribute='saldo')|sum|round(1) }}</strong>
             </div>
         </div>
     </div>
 
     <div class="search-box">
-        <input type="search" id="warehouseSearch" placeholder="Search warehouses..." onkeyup="filterWarehouses()">
+        <input type="search" id="warehouseSearch" placeholder="Search for storage spots..." onkeyup="filterWarehouses()">
     </div>
 
     <div class="warehouse-grid" id="warehouseGrid">
         {% for name, warehouse in warehouses.items() %}
             <div class="warehouse-card" data-name="{{ name|lower }}">
-                <h3>{{ name }}</h3>
+                <h3>🐱 {{ name }}</h3>
                 <div class="warehouse-stats">
                     <div class="stat">
-                        <span class="stat-label">📦 Capacity</span>
+                        <span class="stat-label">🏠 Capacity</span>
                         <span class="stat-value">{{ warehouse.tilavuus }}</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-label">📊 Current Balance</span>
+                        <span class="stat-label">📦 Current Stock</span>
                         <span class="stat-value">{{ warehouse.saldo }}</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-label">📭 Available Space</span>
+                        <span class="stat-label">✨ Free Space</span>
                         <span class="stat-value">{{ warehouse.paljonko_mahtuu() }}</span>
                     </div>
                 </div>
@@ -53,18 +53,18 @@
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: {{ fill_percent }}%"></div>
                     </div>
-                    <p class="progress-text">{{ fill_percent }}% full</p>
+                    <p class="progress-text">{{ fill_percent }}% filled with goodies</p>
                 {% endif %}
                 <div class="actions">
-                    <a href="{{ url_for('view_warehouse', name=name) }}" class="btn btn-primary">🔍 View Details</a>
+                    <a href="{{ url_for('view_warehouse', name=name) }}" class="btn btn-primary">😺 View Details</a>
                 </div>
             </div>
         {% endfor %}
     </div>
 
     <div id="noResults" class="no-results" style="display: none;">
-        <div class="icon">🔍</div>
-        <p>No warehouses found matching your search.</p>
+        <div class="icon">😿</div>
+        <p>No storage spots found... the cat is hiding them!</p>
     </div>
 
     <script>
@@ -97,9 +97,9 @@
 {% else %}
     <div class="card">
         <div class="no-results">
-            <div class="icon">📦</div>
-            <h2 style="margin-bottom: 12px;">No Warehouses Yet</h2>
-            <p>You haven't created any warehouses yet. Click the button above to create your first warehouse!</p>
+            <div class="icon">😺</div>
+            <h2 style="margin-bottom: 12px;">No Storage Spots Yet!</h2>
+            <p>Your cat hasn't claimed any territories yet. Create your first cozy storage spot!</p>
         </div>
     </div>
 {% endif %}
