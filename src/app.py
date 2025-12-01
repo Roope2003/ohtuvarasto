@@ -1,10 +1,11 @@
 """Flask web application for the ohtuvarasto warehouse."""
 
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from varasto import Varasto
 
 app = Flask(__name__)
-app.secret_key = 'ohtuvarasto-secret-key'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-only-secret-key')
 
 # Global warehouse instances dictionary to manage multiple warehouses
 warehouses = {}
@@ -105,4 +106,4 @@ def delete_warehouse(name):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)

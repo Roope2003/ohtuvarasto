@@ -20,10 +20,11 @@
         </div>
     </div>
     {% if warehouse.tilavuus > 0 %}
+        {% set fill_percent = (warehouse.saldo / warehouse.tilavuus * 100)|round(1) %}
         <div class="progress-bar">
-            <div class="progress-fill" style="width: {{ (warehouse.saldo / warehouse.tilavuus * 100)|round(1) }}%"></div>
+            <div class="progress-fill" style="width: {{ fill_percent }}%"></div>
         </div>
-        <small style="color: #666;">{{ (warehouse.saldo / warehouse.tilavuus * 100)|round(1) }}% full</small>
+        <small style="color: #666;">{{ fill_percent }}% full</small>
     {% endif %}
 </div>
 
